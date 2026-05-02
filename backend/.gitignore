@@ -1,0 +1,27 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# Environment variables
+.env
+
+# Database
+*.sqlite3
+
+# User uploads (Dữ liệu ảnh người dùng upload không nên cho vào Git)
+uploads/
+
+# AI Models (Weights thường rất nặng, nên để riêng hoặc dùng Git LFS)
+# weights/*.pt
+
+# Editors
+.vscode/
+.idea/
+.DS_Store
