@@ -142,7 +142,7 @@ export default function HomePage() {
               </div>
 
               <p className="text-indigo-200 font-medium italic text-lg border-l-4 border-indigo-500 pl-4 py-1 bg-indigo-500/5">
-                "{result.message}"
+                &quot;{result.message}&quot;
               </p>
 
               <div className="space-y-4">

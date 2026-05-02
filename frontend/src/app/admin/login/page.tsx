@@ -34,8 +34,9 @@ export default function AdminLogin() {
       const data = await res.json();
       localStorage.setItem("adminToken", data.access_token);
       router.push("/admin");
-    } catch (err: any) {
-      setError(err.message || "Có lỗi xảy ra khi đăng nhập.");
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : "Có lỗi xảy ra khi đăng nhập.";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

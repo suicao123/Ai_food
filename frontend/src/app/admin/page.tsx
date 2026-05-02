@@ -139,8 +139,9 @@ export default function AdminDashboard() {
       setRecipeName("");
       setIngredients([{ name: "", quantity: "" }]);
       setInstructions([""]);
-    } catch (err: any) {
-      showToast("error", err.message);
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : "Có lỗi xảy ra";
+      showToast("error", errorMessage);
     } finally {
       setSubmitting(false);
     }

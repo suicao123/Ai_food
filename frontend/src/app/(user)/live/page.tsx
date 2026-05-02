@@ -11,6 +11,19 @@ export default function LiveScanner() {
   const [isConnected, setIsConnected] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const isProcessingRef = useRef(false);
+  
+  interface DetectionBox {
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+    label: string;
+    confidence: number;
+  }
+
+  interface DetectionData {
+    boxes: DetectionBox[];
+  }
 
   useEffect(() => {
     // 1. Setup Camera Stream
@@ -28,8 +41,9 @@ export default function LiveScanner() {
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
-      } catch (err: any) {
-        setError(`Failed to access camera: ${err.message}`);
+      } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : "Có lỗi xảy ra";
+        setError(`Failed to access camera: ${errorMessage}`);
       }
     };
 
@@ -118,7 +132,7 @@ export default function LiveScanner() {
   }, [isConnected]);
 
   // 4. Draw Bounding Boxes
-  const drawBoundingBoxes = (detections: any) => {
+  const drawBoundingBoxes = (detections: DetectionData) => {
     if (!overlayCanvasRef.current || !videoRef.current) return;
 
     const canvas = overlayCanvasRef.current;
@@ -140,7 +154,7 @@ export default function LiveScanner() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (detections && detections.boxes) {
-      detections.boxes.forEach((box: any) => {
+      detections.boxes.forEach((box: DetectionBox) => {
         const { x, y, w, h, label, confidence } = box;
 
         // Apply scale

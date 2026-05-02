@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
 import { exportExcel, getHistory, HistoryRecord } from "@/lib/api";
 
 export default function HistoryPage() {
@@ -89,10 +90,12 @@ export default function HistoryPage() {
                                         <td className="px-5 py-3 text-slate-500">{idx + 1}</td>
                                         <td className="px-5 py-3">
                                             {r.image_path ? (
-                                                <img
+                                                <Image
                                                     src={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}${r.image_path}`}
                                                     alt={r.food_name}
-                                                    className="w-10 h-10 rounded-lg object-cover border border-white/10"
+                                                    width={40}
+                                                    height={40}
+                                                    className="rounded-lg object-cover border border-white/10"
                                                 />
                                             ) : (
                                                 <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-xs text-slate-600">
